@@ -87,8 +87,10 @@ class CountDownTimer extends Component {
 
     startCounter(){
         var _this = this;
+       let convertInMinutes = parseInt(this.state.countdownMinutes, 10) * 60;
        this.setState({
-           isCountDownStarted:true
+           isCountDownStarted:true,
+           countdownMinutes: convertInMinutes,
        });
       this.startInterval = setInterval(this.interval, 1000);
     }
@@ -133,14 +135,13 @@ class CountDownTimer extends Component {
             {!isCountDownStarted ?  
             <TextInput
             style={styles.minutesInput}
-            keyboardType='numeric'
+            keyboardType={`numeric`}
             placeholder='0'
             maxLength={4}
-            value={this.state.countdownMinutes}
+            value={this.state.countdownMinutes ? String(this.state.countdownMinutes): null}
             onChangeText={(minutes) => {
-                let convertInMinutes = parseInt(minutes, 10) * 60;
                 this.setState({
-                    countdownMinutes: convertInMinutes,
+                    countdownMinutes: minutes,
                 })
             }}
             />  : 
