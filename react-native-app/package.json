@@ -15,6 +15,12 @@
     "ios": "react-native-scripts ios",
     "test": "jest"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bipinswarnkar1989/React-Native-Countdown-app.git"
+  },
+  "author": "Bipin Swarnkar",
+  "license": "ISC",
   "jest": {
     "preset": "jest-expo"
   },

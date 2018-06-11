@@ -5,8 +5,11 @@ import {
     StyleSheet,
     Dimensions,
     TextInput,
-    Button
+    Button,
+    Vibration
  } from 'react-native';
+
+ const DURATION = 10000;
 
 class CountDownTimer extends Component {
     _this;
@@ -46,6 +49,9 @@ class CountDownTimer extends Component {
             } 
             if (_this.state.countdownMinutes <= 0) {
                 _this.stopCounter();
+                Vibration.vibrate(DURATION)
+            // Android: vibrate for 10s
+            // iOS: duration is not configurable, vibrate for fixed time (about 500ms)
                 alert('Time Up !');
             }
     }
