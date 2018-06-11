@@ -11,6 +11,8 @@ import {
 
  const DURATION = 10000;
 
+const soundObject = new Expo.Audio.Sound();
+
 class CountDownTimer extends Component {
     _this;
     constructor(props) {
@@ -52,8 +54,21 @@ class CountDownTimer extends Component {
                 Vibration.vibrate(DURATION)
             // Android: vibrate for 10s
             // iOS: duration is not configurable, vibrate for fixed time (about 500ms)
-                alert('Time Up !');
+             this.playAudio();
+             alert('Time Up!');
+             
             }
+           
+    }
+    
+    playAudio = async () => {
+        try {
+            await soundObject.loadAsync(require('../martian-gun.mp3'));
+            await soundObject.playAsync();
+            // Your sound is playing!
+          } catch (error) {
+            // An error occurred!
+          }
     }
 
     startCounter(){
