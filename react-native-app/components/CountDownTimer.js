@@ -86,6 +86,9 @@ class CountDownTimer extends Component {
     }
 
     startCounter(){
+        if (this.state.isCountDownStarted) {
+            return;
+        }
         var _this = this;
        let convertInMinutes = parseInt(this.state.countdownMinutes, 10) * 60;
        this.setState({
