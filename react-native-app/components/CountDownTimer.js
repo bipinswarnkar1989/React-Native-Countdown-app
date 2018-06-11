@@ -25,6 +25,7 @@ class CountDownTimer extends Component {
             remainingMinites:0,
             remainingSeconds:0,
             isCountDownStarted:false,
+            currentISTTime:null
         };
         this.interval = this.interval.bind(this);
         this.startCounter = this.startCounter.bind(this);
@@ -55,10 +56,23 @@ class CountDownTimer extends Component {
             // Android: vibrate for 10s
             // iOS: duration is not configurable, vibrate for fixed time (about 500ms)
              this.playAudio();
-             alert('Time Up!');
-             
+             alert(`Time Up !`);
+             _this.setState({
+                currentISTTime:this.createTime()
+             })
             }
            
+    }
+
+    createTime = () => {
+        let date = new Date();
+        var seconds = date.getSeconds();
+        var minutes = date.getMinutes();
+        var hour = date.getHours();
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        hour = hour < 10 ? "0" + hour : hour;
+        return `${hour}:${minutes}:${seconds}`;
     }
     
     playAudio = async () => {
@@ -89,6 +103,7 @@ class CountDownTimer extends Component {
             remainingMinites:0,
             remainingSeconds:0,
             isCountDownStarted:false,
+            currentISTTime:null
         });
         
     }
@@ -108,7 +123,7 @@ class CountDownTimer extends Component {
     }
     
     render() {
-        const { isCountDownStarted,remainingMinites,remainingSeconds } = this.state;
+        const { isCountDownStarted,remainingMinites,remainingSeconds,currentISTTime } = this.state;
         return (
             <View style={styles.container}>
             <View style={styles.titleContainer}>
@@ -150,6 +165,16 @@ class CountDownTimer extends Component {
                             this.state.resetButton
                         )}
                     </View>
+
+                  <View>
+                  {currentISTTime && 
+                <View style={styles.ISTContainer}>
+                   <Text style={styles.ISTLabel}>Countdown Finished On: </Text>
+                   <Text style={styles.IST}>{currentISTTime}</Text>
+                   </View>
+                 }
+                  </View>
+                 
             </View>
         );
     }
@@ -158,7 +183,6 @@ class CountDownTimer extends Component {
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        
         marginTop: 100,
     },
     timerContainer:{
@@ -181,11 +205,24 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     buttonsContainer:{
-        flex:1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 30,
         borderWidth:0,
+    },
+    ISTContainer:{
+        alignItems: 'center',
+        justifyContent:'center'
+    },
+    IST:{
+        fontWeight: "bold",
+        color:"#FF6F00",
+        fontSize: 22,
+    },
+    ISTLabel:{
+        fontWeight: "bold",
+        color:"#373737",
+        fontSize: 18,
     }
 })
 
