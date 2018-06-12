@@ -15,9 +15,6 @@ import {
 
  const DURATION = 10000;
 
-
-
-
 class CountDownTimer extends Component {
     _this;
     constructor(props) {

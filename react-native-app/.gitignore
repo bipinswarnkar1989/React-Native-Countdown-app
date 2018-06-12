@@ -7,8 +7,6 @@
 /node_modules
 
 # builds
-/android
-/ios
 /my-release-key.keystore
 /android--old
 
