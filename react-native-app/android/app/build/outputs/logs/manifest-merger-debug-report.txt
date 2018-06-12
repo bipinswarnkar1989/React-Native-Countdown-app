@@ -69,6 +69,8 @@ ADDED from /Users/bipinswarnkar/mesheduTask/react-native-app/android/app/src/mai
 		ADDED from /Users/bipinswarnkar/mesheduTask/react-native-app/android/app/src/main/AndroidManifest.xml:24:17-81
 uses-sdk
 INJECTED from /Users/bipinswarnkar/mesheduTask/react-native-app/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [reacttimer:react-native-sound:unspecified] /Users/bipinswarnkar/mesheduTask/react-native-app/android/app/build/intermediates/exploded-aar/reacttimer/react-native-sound/unspecified/AndroidManifest.xml:9:5-11:41
+MERGED from [reacttimer:react-native-play-audio:unspecified] /Users/bipinswarnkar/mesheduTask/react-native-app/android/app/build/intermediates/exploded-aar/reacttimer/react-native-play-audio/unspecified/AndroidManifest.xml:7:5-9:41
 MERGED from [reacttimer:react-native-background-timer:unspecified] /Users/bipinswarnkar/mesheduTask/react-native-app/android/app/build/intermediates/exploded-aar/reacttimer/react-native-background-timer/unspecified/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.react:react-native:0.55.4] /Users/bipinswarnkar/mesheduTask/react-native-app/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.55.4/AndroidManifest.xml:7:5-9:41
 MERGED from [com.android.support:appcompat-v7:23.0.1] /Users/bipinswarnkar/mesheduTask/react-native-app/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/AndroidManifest.xml:20:5-43

@@ -12,11 +12,18 @@ import {
  } from 'react-native';
 
  import BackgroundTimer from 'react-native-background-timer';
+ // Import the react-native-sound module
+var Sound = require('react-native-sound');
 
  const DURATION = 10000;
 
+ // Enable playback in silence mode
+Sound.setCategory('Playback');
+
+
 class CountDownTimer extends Component {
     _this;
+    whoosh;
     constructor(props) {
         super(props);
         this.state = {
@@ -32,10 +39,18 @@ class CountDownTimer extends Component {
         this.interval = this.interval.bind(this);
         this.startCounter = this.startCounter.bind(this);
         this.stopCounter = this.stopCounter.bind(this);
+         this.whoosh = new Sound(require('../martian-gun.mp3'), (error) => {
+            if (error) {
+              alert(error.message)
+              return;
+            }
+          });
+        // Loop indefinitely until stop() is called
+        this.whoosh.setNumberOfLoops(-1);
     }
 
     componentDidMount(){
-        alert('New Build Android & IOS(Not tested) Background Timer Running: 1 ');
+        //alert('Audio Testing 3');
     }
 
     interval(){
@@ -57,7 +72,7 @@ class CountDownTimer extends Component {
                 Vibration.vibrate(DURATION)
             // Android: vibrate for 10s
             // iOS: duration is not configurable, vibrate for fixed time (about 500ms)
-             this.playAudio();
+             this.playAudio(this.whoosh);
              alert(`Time Up !`);
              _this.setState({
                 currentISTTime:this.createTime()
@@ -77,8 +92,26 @@ class CountDownTimer extends Component {
         return `${hour}:${minutes}:${seconds}`;
     }
     
-    playAudio = async () => {
+    playAudio = async (whoosh) => {
         try {
+             // Play the sound with an onEnd callback
+    whoosh.play((success) => {
+    if (success) {
+      console.log('successfully finished playing');
+    } else {
+      alert('some err')
+      // reset the player to its uninitialized state (android only)
+      // this is the only option to recover after an error occured and use the player again
+      setTimeout(// Stop the sound and rewind to the beginning
+        whoosh.stop(() => {
+          // Note: If you want to play a sound after stopping and rewinding it,
+          // it is important to call play() in a callback.
+          whoosh.play();
+          whoosh.reset();
+        }), DURATION);
+      
+    }
+  });
             // Sound.enable(true); // Enable sound
             // Sound.prepare(require('../martian-gun.mp3')); // Preload the sound file 'tap.aac' in the app bundle
             // Sound.play(); 
