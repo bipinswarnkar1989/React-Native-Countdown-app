@@ -6,12 +6,17 @@ import {
     Dimensions,
     TextInput,
     Button,
-    Vibration
+    Vibration,
+    NativeAppEventEmitter,
+    Platform
  } from 'react-native';
+
+ import BackgroundTimer from 'react-native-background-timer';
 
  const DURATION = 10000;
 
-const soundObject = new Expo.Audio.Sound();
+
+
 
 class CountDownTimer extends Component {
     _this;
@@ -33,7 +38,7 @@ class CountDownTimer extends Component {
     }
 
     componentDidMount(){
-        this._this = this;
+        alert('New Build Android & IOS(Not tested) Background Timer Running: 1 ');
     }
 
     interval(){
@@ -77,8 +82,14 @@ class CountDownTimer extends Component {
     
     playAudio = async () => {
         try {
-            await soundObject.loadAsync(require('../martian-gun.mp3'));
-            await soundObject.playAsync();
+            // Sound.enable(true); // Enable sound
+            // Sound.prepare(require('../martian-gun.mp3')); // Preload the sound file 'tap.aac' in the app bundle
+            // Sound.play(); 
+            // setTimeout(function(){
+            //     Sound.stop(); // Stop and reset the sound.
+            // }, DURATION);
+            // await soundObject.loadAsync(require('../martian-gun.mp3'));
+            // await soundObject.playAsync();
             // Your sound is playing!
           } catch (error) {
             // An error occurred!
@@ -95,11 +106,24 @@ class CountDownTimer extends Component {
            isCountDownStarted:true,
            countdownMinutes: convertInMinutes,
        });
-      this.startInterval = setInterval(this.interval, 1000);
+       if (Platform.OS === 'android') {
+        this.startInterval = BackgroundTimer.setInterval(this.interval, 1000);
+       } else if (Platform.OS === 'ios') {
+        BackgroundTimer.start();
+        // Do whatever you want incuding setTimeout;
+        this.startInterval = BackgroundTimer.setInterval(this.interval, 1000);
+        BackgroundTimer.stop();
+       }
+      
     }
 
     stopCounter(){
-        clearInterval(this.startInterval);
+       // clearInterval(this.startInterval);
+       if (Platform.OS === 'android') {
+       BackgroundTimer.clearInterval(this.startInterval);
+       } else if (Platform.OS === 'ios') {
+        BackgroundTimer.stop();
+        }
         this.setState({
             startButton: true,
             pauseButton: false,

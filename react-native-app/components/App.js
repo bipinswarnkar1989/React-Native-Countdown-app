@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View , NativeAppEventEmitter} from 'react-native';
 import CountDownTimer from './CountDownTimer';
 
 export default class App extends React.Component {
